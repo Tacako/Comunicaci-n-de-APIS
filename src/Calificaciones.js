@@ -5,10 +5,10 @@ const database = require("./database");
 //configuración inicial
 const app = express();
 const PORT = 4000; // Cambiar el puerto
-const IP = '192.168.56.1';
+const IP = '172.16.19.151';
 
 app.listen(PORT, IP, () => {
-    console.log(`Servidor en ejecución en http://${IP}${PORT}`);
+    console.log(`Servidor en ejecución en http://${IP}:${PORT}`);
 });
 
 //Middlewares
@@ -17,8 +17,8 @@ app.use(morgan("dev"))
 //Rutas
 app.get('/calificaciones', async (req, res) => {
     const connection = await database.getConnection();
-    const result = await connection.query("SELECT * FROM calificaciones");
-    console.log(result)
+    const [result] = await connection.query("SELECT * from calificaciones");
+    res.json(result)
 });
 
 
