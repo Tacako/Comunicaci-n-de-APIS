@@ -85,29 +85,29 @@ app.put('/alumnos/:id', async (req, res) => {
 });
 
 //Cambiar edad de los alumnos
-app.patch('/alumnos/:id/edad', async (req, res) => {
+app.patch('/alumnos/:id/pasa', async (req, res) => {
     const { id } = req.params;
     const { edad } = req.body;
     const connection = await database.getConnection();
 
     try {
         const [result] = await connection.query(
-            'UPDATE alumnos SET edad = ? WHERE idalumnos = ?',
+            'UPDATE alumnos SET aprobado = ? WHERE idalumnos = ?',
             [edad, id]
         );
 
         if (result.affectedRows === 1) {
-            return res.json("Edad cambiada");
+            return res.json("Pasa, cambiada");
         }
 
         if (result.affectedRows === 0) {
-            return res.json("Edad no cambiada");
+            return res.json("Pasa, no cambiada");
         }
 
         res.json({ id, edad });
     } catch (error) {
-        console.error("Error al asignar la edad al alumno:", error);
-        res.status(500).send("Error al asignar el grupo al alumno");
+        console.error("Error al asignar si pasa el alumno:", error);
+        res.status(500).send("Error al asignar si pasa el alumno");
     }
 });
 
