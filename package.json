@@ -1,9 +1,9 @@
 {
   "name": "proyecto-api",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "Alumnos.js",
   "scripts": {
-    "dev": "nodemon src/Calificaciones.js"
+    "dev": "nodemon src/Alumnos.js"
   },
   "keywords": [],
   "author": "",

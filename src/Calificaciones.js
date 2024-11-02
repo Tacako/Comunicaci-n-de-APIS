@@ -1,3 +1,4 @@
+//Iber
 const express = require("express");
 const morgan = require("morgan");
 const database = require("./database");
@@ -5,7 +6,7 @@ const database = require("./database");
 //configuración inicial
 const app = express();
 const PORT = 4000; // Cambiar el puerto
-const IP = '172.16.19.151';
+const IP = '192.168.56.1';
 
 app.listen(PORT, IP, () => {
     console.log(`Servidor en ejecución en http://${IP}:${PORT}`);
