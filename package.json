@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "main": "Alumnos.js",
   "scripts": {
-    "dev": "nodemon src/Alumnos.js"
+    "dev": "nodemon src/Alumnos.js",
+    "dev1": "nodemon src/Calificaciones.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "axios": "^1.7.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
