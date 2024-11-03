@@ -84,16 +84,16 @@ app.put('/alumnos/:id', async (req, res) => {
     }
 });
 
-//Cambiar edad de los alumnos
+//Cambiar si pasaron los alumnos
 app.patch('/alumnos/:id/pasa', async (req, res) => {
     const { id } = req.params;
-    const { edad } = req.body;
+    const { pasa } = req.body;
     const connection = await database.getConnection();
 
     try {
         const [result] = await connection.query(
             'UPDATE alumnos SET aprobado = ? WHERE idalumnos = ?',
-            [edad, id]
+            [pasa, id]
         );
 
         if (result.affectedRows === 1) {
