@@ -6,7 +6,7 @@ const database = require("./database");
 //configuración inicial
 const app = express();
 const PORT = 4001; // Cambiar el puerto sumando 1
-const IP = '172.16.21.44'; //Cambiar a tu ip usando en la consola de windows ipconfig
+const IP = '192.168.56.1'; //Cambiar a tu ip usando en la consola de windows ipconfig
 
 app.listen(PORT, IP, () => {
     console.log(`Servidor en ejecución en http://${IP}:${PORT}/alumnos`);
@@ -29,11 +29,11 @@ app.get('/alumnos', async (req, res) => {
 app.post('/alumnos/agregar', async (req, res) => {
     const { id, nombre, edad, genero } = req.body;
     const connection = await database.getConnection();
-
+    const grupo = 0;
     try {
         const [result] = await connection.query(
-            'INSERT INTO alumnos (idalumnos, nombre, edad, genero) VALUES (?, ?, ?, ?)',
-            [id, nombre, edad, genero]
+            'INSERT INTO alumnos (idalumnos, nombre, edad, genero, grupo) VALUES (?, ?, ?, ?, ? )',
+            [id, nombre, edad, genero, grupo]
         );
 
         const [result1] = await connection.query(

@@ -4,7 +4,8 @@
   "main": "Alumnos.js",
   "scripts": {
     "dev": "nodemon src/Alumnos.js",
-    "dev1": "nodemon src/Calificaciones.js"
+    "dev1": "nodemon src/Calificaciones.js",
+    "dev2": "nodemon src/Grupos.js"
   },
   "keywords": [],
   "author": "",
