@@ -6,8 +6,8 @@ const axios = require('axios');
 
 //configuración inicial
 const app = express();
-const PORT = 4002; // Cambiar el puerto
-const IP = '192.168.56.1';
+const PORT = 4002; 
+const IP = '192.168.56.1'; // Cambiar la ip
 
 app.listen(PORT, IP, () => {
     console.log(`Servidor en ejecución en http://${IP}:${PORT}`);
