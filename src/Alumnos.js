@@ -62,13 +62,13 @@ app.post('/alumnos/agregar', async (req, res) => {
 //Actualizar uno que ya existe
 app.put('/alumnos/:id', async (req, res) => {
     const { id } = req.params;
-    const { nombre, edad, genero } = req.body;
+    const { nombre, edad, genero, grupo, aprobado } = req.body;
     const connection = await database.getConnection();
 
     try {
         const [result] = await connection.query(
-            'UPDATE alumnos SET nombre = ?, edad = ?, genero = ? WHERE idalumnos = ?',
-            [nombre, edad, genero, id]
+            'UPDATE alumnos SET nombre = ?, edad = ?, genero = ?, grupo = ?, aprobado = ?  WHERE idalumnos = ?',
+            [nombre, edad, genero, grupo, aprobado, id]
         );
 
         if (result.affectedRows === 0) {
