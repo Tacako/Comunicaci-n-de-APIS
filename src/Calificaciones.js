@@ -3,11 +3,12 @@ const express = require("express");
 const morgan = require("morgan");
 const database = require("./database");
 const axios = require('axios');
+const cors = require("cors");
 
 //configuración inicial
 const app = express();
 const PORT = 4002; 
-const IP = '192.168.56.1'; // Cambiar la ip
+const IP = '192.168.100.6'; // Cambiar la ip
 
 app.listen(PORT, IP, () => {
     console.log(`Servidor en ejecución en http://${IP}:${PORT}`);
@@ -16,46 +17,59 @@ app.listen(PORT, IP, () => {
 //Middlewares
 app.use(morgan("dev"))
 app.use(express.json());
+app.use(cors());
 
 //Rutas
-app.get('/calificaciones/promedio/:id', async (req, res) => {
-    const { id } = req.params;
+app.get('/calificaciones/promedio', async (req, res) => {
     const connection = await database.getConnection();
 
     try {
-        // Obtener calificaciones
+        // Obtener todas las calificaciones junto con los IDs de los alumnos
         const [rows] = await connection.query(
-            'SELECT Matematicas, Ingles, DesarrolloWeb FROM calificaciones WHERE idalumnos = ?',
-            [id]
+            'SELECT idalumnos, Matematicas, Ingles, DesarrolloWeb FROM calificaciones'
         );
 
         if (rows.length === 0) {
-            return res.status(404).send('No se encontraron calificaciones para el alumno.');
+            return res.status(404).send('No se encontraron calificaciones para ningún alumno.');
         }
 
-        // Calcular promedio
-        const { Matematicas, Ingles, DesarrolloWeb } = rows[0];
-        const totalCalificaciones = Matematicas + Ingles + DesarrolloWeb;
-        const promedio = totalCalificaciones / 3;
-        const pasa = promedio >= 60;
+        // Procesar promedios y comunicar resultados
+        const resultados = [];
+        for (const row of rows) {
+            const { idalumnos, Matematicas, Ingles, DesarrolloWeb } = row;
+            const totalCalificaciones = Matematicas + Ingles + DesarrolloWeb;
+            const promedio = totalCalificaciones / 3;
+            const pasa = promedio >= 60;
 
-        console.log(promedio)
-        // Comunicar el resultado a Alumnos.js
-        await axios.patch(`http://${IP}:4001/alumnos/${id}/pasa`, { //Cambiar puerto e IP 
-            pasa
-        });
+            // Comunicar el resultado a Alumnos.js
+            await axios.patch(`http://${IP}:4001/alumnos/${idalumnos}/pasa`, { pasa });
 
-        res.json({ promedio, pasa });
+            // Guardar resultado para la respuesta final
+            resultados.push({ idalumnos, promedio, pasa });
+        }
+
+        res.json(resultados);
+        console.log(resultados);
     } catch (error) {
-        console.error("Error al calcular el promedio:", error);
-        res.status(500).send("Error al calcular el promedio");
+        console.error("Error al calcular los promedios:", error);
+        res.status(500).send("Error al calcular los promedios");
     }
 });
 
 app.get('/calificaciones', async (req, res)=>{
     const connection = await database. getConnection();
-    const [result] = await connection.query("SELECT * from calificaciones");
-    res.json(result)
+    try {
+        const [result] = await connection.query(`
+            SELECT calificaciones.idalumnos, alumnos.nombre, calificaciones.Matematicas, calificaciones.Ingles, calificaciones.DesarrolloWeb
+            FROM calificaciones
+            INNER JOIN alumnos ON calificaciones.idalumnos = alumnos.idalumnos
+        `);
+
+        res.json(result);
+    } catch (error) {
+        console.error("Error al obtener calificaciones:", error);
+        res.status(500).send("Error al obtener calificaciones");
+    }
 });
 
 app.post('/calificaciones/agregar/:id', async (req, res) => {
@@ -128,4 +142,3 @@ app.delete('/calificaciones/eliminar/:id', async (req, res) => {
         res.status(500).send("Error al eliminar calificaciones");
     }
 });
-

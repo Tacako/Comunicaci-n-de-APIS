@@ -2,19 +2,21 @@
 const express = require("express");
 const morgan = require("morgan");
 const database = require("./database");
+const cors = require("cors");
 
 //configuración inicial
 const app = express();
 const PORT = 4001;
-const IP = '192.168.56.1'; // Cambiar la ip
+const IP = '192.168.100.6'; // Cambiar la ip
 
 app.listen(PORT, IP, () => {
-    console.log(`Servidor en ejecución en http://${IP}:${PORT}/alumnos`);
+    console.log(`Servidor en ejecución en http://${IP}:${PORT}`);
 });
 
 //Middlewares
 app.use(morgan("dev"))
 app.use(express.json());
+app.use(cors());
 
 //Rutas
 
@@ -139,3 +141,4 @@ app.delete('/alumnos/:id/borrar', async (req, res) => {
         res.status(500).send("Error al borrar el alumno");
     }
 });
+
