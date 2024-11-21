@@ -10,7 +10,7 @@ function showMessage(message) {
 //Ver Alumnos
 document.getElementById('loadAlumnos').addEventListener('click', async () => {
     try {
-        const response = await fetch('http://192.168.100.6:4001/alumnos'); //Cambiar ip y puerto
+        const response = await fetch('http://172.16.16.226:4001/alumnos'); //Cambiar ip y puerto
         const data = await response.json();
         
         // Si no hay alumnos, mostrar un mensaje
@@ -54,7 +54,7 @@ document.getElementById('addForm').addEventListener('submit', async (e) => {
     const genero = document.getElementById('genero').value;
 
     try {
-        const response = await fetch('http://192.168.100.6:4001/alumnos/agregar', { //Cambiar ip y puerto
+        const response = await fetch('http://172.16.16.226:4001/alumnos/agregar', { //Cambiar ip y puerto
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ document.getElementById('updateForm').addEventListener('submit', async (e) => {
     const aprobado = document.getElementById('updatePasa').value;
 
     try {
-        const response = await fetch(`http://192.168.100.6:4001/alumnos/${id}`, { //Cambiar ip y puerto
+        const response = await fetch(`http://172.16.16.226:4001/alumnos/${id}`, { //Cambiar ip y puerto
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ document.getElementById('passForm').addEventListener('submit', async (e) => {
     const pasa = document.getElementById('pasa').value;
 
     try {
-        const response = await fetch(`http://192.168.100.6:4001/alumnos/${id}/pasa`, { //Cambiar ip y puerto
+        const response = await fetch(`http://172.16.16.226:4001/alumnos/${id}/pasa`, { //Cambiar ip y puerto
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -129,7 +129,7 @@ document.getElementById('deleteForm').addEventListener('submit', async (e) => {
     const id = document.getElementById('deleteId').value;
 
     try {
-        const response = await fetch(`http://192.168.100.6:4001/alumnos/${id}/borrar`, { //Cambiar ip y puerto
+        const response = await fetch(`http://172.16.16.226:4001/alumnos/${id}/borrar`, { //Cambiar ip y puerto
             method: 'DELETE',
         });
 

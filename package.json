@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "Alumnos.js",
   "scripts": {
-    "dev": "nodemon src/Alumnos.js",
-    "dev1": "nodemon src/Calificaciones.js",
-    "dev2": "nodemon src/Grupos.js"
+    "alumnos": "nodemon src/Alumnos.js",
+    "calificaciones": "nodemon src/Calificaciones.js",
+    "grupos": "nodemon src/Grupos.js",
+    "inicio": "nodemon src/public/inicio.js"
   },
   "keywords": [],
   "author": "",

@@ -7,7 +7,7 @@ const cors = require("cors");
 //configuración inicial
 const app = express();
 const PORT = 4001;
-const IP = '192.168.100.6'; // Cambiar la ip
+const IP = '172.16.16.226'; // Cambiar la ip
 
 app.listen(PORT, IP, () => {
     console.log(`Servidor en ejecución en http://${IP}:${PORT}`);

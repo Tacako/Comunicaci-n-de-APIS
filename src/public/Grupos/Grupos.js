@@ -10,7 +10,7 @@ function showMessage(message) {
 // Actualizar los grupos de todos los alumnos según los promedios
 document.getElementById('updateGrupos').addEventListener('click', async () => {
     try {
-        const response = await fetch('http://192.168.100.6:4003/alumnos/actualizarGrupo', {
+        const response = await fetch('http://172.16.16.226:4003/alumnos/actualizarGrupo', {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ document.getElementById('updateGrupos').addEventListener('click', async () => {
 //Ver Alumnos
 document.getElementById('loadAlumnos').addEventListener('click', async () => {
     try {
-        const response = await fetch('http://192.168.100.6:4001/alumnos'); //Cambiar ip y puerto
+        const response = await fetch('http://172.16.16.226:4001/alumnos'); //Cambiar ip y puerto
         const data = await response.json();
         
         // Si no hay alumnos, mostrar un mensaje

@@ -10,7 +10,7 @@ function showMessage(message) {
 // Cargar todas las calificaciones
 document.getElementById('fetchCalificaciones').addEventListener('click', async () => {
     try {
-        const response = await fetch('http://192.168.100.6:4002/calificaciones'); //Cambiar ip y puerto
+        const response = await fetch('http://172.16.16.226:4002/calificaciones'); //Cambiar ip y puerto
         const data = await response.json();
 
         const listElement = document.getElementById('calificacionesList');
@@ -32,7 +32,7 @@ document.getElementById('fetchCalificaciones').addEventListener('click', async (
 // Calcular promedios
 document.getElementById('calculatePromedios').addEventListener('click', async () => {
     try {
-        const response = await fetch('http://192.168.100.6:4002/calificaciones/promedio'); //Cambiar ip y puerto
+        const response = await fetch('http://172.16.16.226:4002/calificaciones/promedio'); //Cambiar ip y puerto
         const data = await response.json();
 
         const resultElement = document.getElementById('promediosResult');
@@ -57,7 +57,7 @@ document.getElementById('addForm').addEventListener('submit', async (e) => {
     const DesarrolloWeb = document.getElementById('desarrolloWeb').value;
 
     try {
-        const response = await fetch(`http://192.168.100.6:4002/calificaciones/agregar/${id}`, { //Cambiar ip y puerto
+        const response = await fetch(`http://172.16.16.226:4002/calificaciones/agregar/${id}`, { //Cambiar ip y puerto
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ document.getElementById('updateForm').addEventListener('submit', async (e) => {
     const DesarrolloWeb = document.getElementById('updateDesarrolloWeb').value;
 
     try {
-        const response = await fetch(`http://192.168.100.6:4002/calificaciones/actualizar/${id}`, { //Cambiar ip y puerto
+        const response = await fetch(`http://172.16.16.226:4002/calificaciones/actualizar/${id}`, { //Cambiar ip y puerto
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ document.getElementById('deleteForm').addEventListener('submit', async (e) => {
     const id = document.getElementById('deleteId').value;
 
     try {
-        const response = await fetch(`http://192.168.100.6:4002/calificaciones/eliminar/${id}`, { //Cambiar ip y puerto
+        const response = await fetch(`http://172.16.16.226:4002/calificaciones/eliminar/${id}`, { //Cambiar ip y puerto
             method: 'DELETE',
         });
 
